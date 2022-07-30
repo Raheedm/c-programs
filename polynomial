@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<conio.h>
+#include<malloc.h>
+struct node
+{
+    int coe,expo;
+    struct node *next;
+}*head1,*new1,*poly1,*head2,*new2,*poly2;
+void create();
+void display();
+void add();
+void main()
+{
+    int ch;
+    
+    while(1)
+    {
+        printf("\n Menu\n1.Create\n2.Display\n3.Add\n4.Exit\n");
+        printf("\n Enter your choice \n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:create();
+                break;
+            case 2:display();
+                break;
+            case 3:add();
+                break;
+            default:exit(1);
+        }
+       }
+       
+}
+void create()
+{
+    char choice;
+    printf("\n Enter the first polynomial \n");
+    do
+    {
+        new1=(struct node *)malloc(sizeof(struct node));
+        printf("\n Enter the Coefficient and Exponent \n");
+        scanf("%d%d",&new1->coe,&new1->expo);
+        new1->next=NULL;
+        if(head1==NULL)
+        {
+            head1=poly1=new1;
+        }
+        else
+        {
+            poly1->next=new1;
+            poly1=new1;
+        }
+        printf("\n Do u want to add more nodes (y/n)?\n");
+        fflush(stdin);
+        
+        scanf("%c",&choice);
+    } while(choice=='y');
+    printf("\n Enter second polynomial \n");
+    do
+    {
+        new2=(struct node *)malloc(sizeof(struct node));
+        printf("\n Enter Coefficient and Exponent values \n");
+        scanf("%d%d",&new2->coe,&new2->expo);
+        new2->next=NULL;
+    if(head2==NULL)
+    {
+        head2=poly2=new2;
+    }
+    else
+    {
+        poly2->next=new2;
+        poly2=new2;
+    }
+    printf("\n do u want to add one more node to the list \n");
+    fflush(stdin);
+    scanf("%c",&choice);
+    } while(choice=='y');
+}
+void display()
+{
+    printf("\n First polynomial is \n");
+    poly1=head1;
+    while(poly1!=NULL)
+    {
+        printf("%dx^%d",poly1->coe,poly1->expo);
+        poly1=poly1->next;
+        if(poly1!=NULL)
+         printf("+");
+    }
+    printf("\n Second polynomial is \n");
+    poly2=head2;
+    while(poly2!=NULL)
+    {
+        printf("%dx^%d",poly2->coe,poly2->expo);
+        poly2=poly2->next;
+        if(poly2!=NULL)
+         printf("+");
+    }
+}
+void add()
+{
+    poly1=head1;
+    poly2=head2;
+    printf("\n Addition of the two polynomial is \n");
+    while(poly1!=NULL&&poly2!=NULL)
+    {
+        if(poly1->expo==poly2->expo)
+        {
+            printf("%dx^%d",poly1->coe+poly2->coe,poly1->expo);
+            poly1=poly1->next;
+            poly2=poly2->next;
+        }
+        else if(poly1->expo>poly2->expo)
+        {
+            printf("%dx^%d",poly1->coe,poly1->expo);
+            poly1=poly1->next;
+        }
+        else
+        {
+            printf("%dx^%d",poly2->coe,poly2->expo);
+            poly2=poly2->next;
+        }
+        if(poly1!=NULL||poly2!=NULL)
+        printf("+");
+    }
+        while(poly1!=NULL)
+        {
+            printf("%dx^%d",poly1->coe,poly1->expo);
+            poly1=poly1->next;
+            if(poly1!=NULL)
+             printf("+");
+        }
+        while(poly2!=NULL)
+        {
+            printf("%dx^%d",poly2->coe,poly2->expo);
+            poly2=poly2->next;
+            if(poly2!=NULL)
+             printf("+");
+        }
+}
